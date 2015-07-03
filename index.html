@@ -1,0 +1,56 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title>Robot</title>
+    <style>
+    </style>
+  </head>
+  <body>
+
+    <button id="forward" class="js-dir">Forward (w)</button>
+    <button id="back" class="js-dir">Back (s)</button>
+    <button id="left" class="js-dir">Left (a)</button>
+    <button id="right" class="js-dir">Right (d)</button>
+
+
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+        $(function() {
+            "use strict";
+            var socket = io();
+            socket.emit('move', 'foo');
+
+            var move = _.debounce(function(dir) {
+                socket.emit("move", { direction: dir });
+                console.log('move: ' + dir);
+            }, 100);
+
+            $(".js-dir").click(function() {
+                var dir = $(this).attr("id");
+                move(dir);
+            });
+
+            $(document).keypress(function(e) {
+                switch (e.keyCode) {
+                    case 119: //W
+                        move('forward');
+                        break;
+                    case 97: //A
+                        move('left');
+                        break;
+                    case 115: //S
+                        move('back');
+                        break;
+                    case 100: //D
+                        move('right');
+                        break;
+                }
+            });
+
+        });
+</script>
+  </body>
+</html>

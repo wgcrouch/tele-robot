@@ -1,0 +1,17 @@
+{
+  "env": {
+    // I write for browser
+    "browser": true,
+    // in CommonJS
+    "node": true
+  },
+  "rules": {
+    "quotes": [0],
+    "no-underscore-dangle": [0],
+  },
+  "globals": {
+    "$": true,
+    "io": true,
+    "_": true
+  }
+}
